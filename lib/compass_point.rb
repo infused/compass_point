@@ -1,5 +1,5 @@
 class CompassPoint
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 
   POINTS = {
     n:    {min: 354.38, mid: 0.0,    max: 5.62,   name: 'North'},
