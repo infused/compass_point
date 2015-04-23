@@ -25,11 +25,22 @@ Compass Point is tested to work with the following versions of ruby:
 
 ## Basic Usage
 
+Given an abbreviation such as "NW" or "SE", `azimuth` will
+return the corresponding azimuth in degrees from 0 to 360:
+
     require 'compass_point'
 
     CompassPoint.azimuth('N') #=> 0.0
     CompassPoint.azimuth('S') #=> 180.0
     CompassPoint.azimuth('swbs') #=> 213.75
+
+
+You can also get the minimum and maximum azimuths for any
+abbreviation with `min`, `max` and `min_max`:
+
+    CompassPoint.min('E') #=> 84.38
+    CompassPoint.max('E') #=> 95.62
+    CompassPoint.min_max('E') #=> [84.38, 95.62]
 
 
 ## License

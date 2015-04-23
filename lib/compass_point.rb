@@ -37,15 +37,33 @@ class CompassPoint
   }
 
   class << self
-    def azimuth(compass_point)
-      key = normalize_key(compass_point)
+    def azimuth(abbreviation)
+      key = normalize_abbreviation(abbreviation)
       point = POINTS[key]
       point && point[:mid]
     end
 
+    def min(abbreviation)
+      key = normalize_abbreviation(abbreviation)
+      point = POINTS[key]
+      point && point[:min]
+    end
+
+    def max(abbreviation)
+      key = normalize_abbreviation(abbreviation)
+      point = POINTS[key]
+      point && point[:max]
+    end
+
+    def min_max(abbreviation)
+      key = normalize_abbreviation(abbreviation)
+      point = POINTS[key]
+      point && [point[:min], point[:max]]
+    end
+
     private
 
-    def normalize_key(compass_point)
+    def normalize_abbreviation(compass_point)
       compass_point.to_s.downcase.to_sym
     end
   end
