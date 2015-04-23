@@ -37,4 +37,10 @@ describe CompassPoint do
     end
   end
 
+  describe '.name' do
+    it 'returns the points full name' do
+      expect(CompassPoint.name('nnw')).to eq 'North northwest'
+    end
+  end
+
 end
