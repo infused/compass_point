@@ -42,6 +42,11 @@ abbreviation with `min`, `max` and `min_max`:
     CompassPoint.max('E') #=> 95.62
     CompassPoint.min_max('E') #=> [84.38, 95.62]
 
+Get the full name for an abbreviation:
+
+    CompassPoint.name('NNW') #=> "North northwest"
+    CompassPoint.name('SEbS') #=> "Southeast by south"
+
 
 ## License
 
