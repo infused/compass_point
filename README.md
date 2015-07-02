@@ -4,6 +4,7 @@
 [![Code Quality](http://img.shields.io/codeclimate/github/infused/compass_point.svg?style=flat)](https://codeclimate.com/github/infused/compass_point)
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/infused/compass_point.svg?style=flat)](https://codeclimate.com/github/infused/compass_point)
 [![Dependency Status](http://img.shields.io/gemnasium/infused/compass_point.svg?style=flat)](https://gemnasium.com/infused/compass_point)
+[![Total Downloads](https://img.shields.io/gem/dt/compass_point.svg)](https://rubygems.org/gems/compass_point/)
 
 A Ruby library for working with compass points.
 
