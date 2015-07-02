@@ -5,7 +5,9 @@
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/infused/compass_point.svg?style=flat)](https://codeclimate.com/github/infused/compass_point)
 [![Dependency Status](http://img.shields.io/gemnasium/infused/compass_point.svg?style=flat)](https://gemnasium.com/infused/compass_point)
 
-A Ruby library for working with compass points
+A Ruby library for working with compass points.
+
+![Compass Rose](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Compass_Rose_English_North.svg/237px-Compass_Rose_English_North.svg.png)
 
 * Project page: <http://github.com/infused/compass_point>
 * API Documentation: <http://rubydoc.info/github/infused/compass_point/>
