@@ -62,7 +62,50 @@ class CompassPoint
       point && point[:name]
     end
 
+    def compass_quadrant_bearing(bearing)
+      b = bearing.round
+      case b
+      when 0, 360
+        'N'
+      when 90
+        'E'
+      when 180
+        'S'
+      when 270
+        'W'
+      else
+        s = []
+        s << north_or_south(b)
+        if north_or_south(b) == 'N'
+          if east_or_west(b) == 'W'
+            s << (360 - b).abs.to_s
+          else
+            s << b.to_s
+          end
+        else
+          s << (180 - b).abs.to_s
+        end
+        s.last << '°'
+        s << east_or_west(b)
+        s.join(' ')
+      end
+    end
+
     private
+
+    def north_or_south(bearing)
+      b = bearing.round
+      if (0..90).include?(b.to_i) || (270..360).include?(b.to_i)
+        'N'
+      else
+        'S'
+      end
+    end
+
+    def east_or_west(bearing)
+      b = bearing.round
+      (180..360).include?(b.to_i) ? 'W' : 'E'
+    end
 
     def find_point(abbrev)
       key = normalize_abbrev(abbrev)

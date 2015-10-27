@@ -28,10 +28,10 @@ Compass Point is tested to work with the following versions of ruby:
 
 ## Basic Usage
 
+### Azimuth
+
 Given an abbreviation such as "NW" or "SE", `azimuth` will
 return the corresponding azimuth in degrees from 0 to 360:
-
-    require 'compass_point'
 
     CompassPoint.azimuth('N') #=> 0.0
     CompassPoint.azimuth('S') #=> 180.0
@@ -50,6 +50,15 @@ Get the full name for an abbreviation:
     CompassPoint.name('NNW') #=> "North northwest"
     CompassPoint.name('SEbS') #=> "Southeast by south"
 
+
+### Compass Quadrant Bearing
+
+Given an azimuth, calculate the compass quadrant bearing.  For
+example:
+
+    CompassPoint.compass_quadrant_bearing(103) #=> "S 77° E"
+    CompassPoint.compass_quadrant_bearing(340) #=> "N 20° W"
+    CompassPoint.compass_quadrant_bearing(0) #=> "N"
 
 ## License
 

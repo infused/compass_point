@@ -43,4 +43,22 @@ describe CompassPoint do
     end
   end
 
+  describe '.compass_quadrant_bearing' do
+    it 'is' do
+      expect(CompassPoint.compass_quadrant_bearing(0)).to eq 'N'
+      expect(CompassPoint.compass_quadrant_bearing(27)).to eq 'N 27° E'
+      expect(CompassPoint.compass_quadrant_bearing(27.4)).to eq 'N 27° E'
+      expect(CompassPoint.compass_quadrant_bearing(27.7)).to eq 'N 28° E'
+      expect(CompassPoint.compass_quadrant_bearing(90)).to eq 'E'
+      expect(CompassPoint.compass_quadrant_bearing(103)).to eq 'S 77° E'
+      expect(CompassPoint.compass_quadrant_bearing(178)).to eq 'S 2° E'
+      expect(CompassPoint.compass_quadrant_bearing(180)).to eq 'S'
+      expect(CompassPoint.compass_quadrant_bearing(210)).to eq 'S 30° W'
+      expect(CompassPoint.compass_quadrant_bearing(270)).to eq 'W'
+      expect(CompassPoint.compass_quadrant_bearing(283)).to eq 'N 77° W'
+      expect(CompassPoint.compass_quadrant_bearing(340)).to eq 'N 20° W'
+      expect(CompassPoint.compass_quadrant_bearing(360)).to eq 'N'
+    end
+  end
+
 end
