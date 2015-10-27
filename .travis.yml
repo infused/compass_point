@@ -1,11 +1,10 @@
 language: ruby
+sudo: false
 rvm:
   - 2.2.2
   - 2.1.6
   - 2.0.0
-  - 1.9.3
-  - jruby-1.7.19
-  - rbx
+  - jruby-head
 branches:
   only:
     - master
