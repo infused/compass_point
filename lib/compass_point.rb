@@ -36,84 +36,82 @@ class CompassPoint
     nbw:  {min: 343.13, mid: 348.75, max: 354.37, name: 'North by west'}
   }
 
-  class << self
-    def azimuth(abbrev)
-      point = find_point(abbrev)
-      point && point[:mid]
-    end
+  def self.azimuth(abbrev)
+    point = find_point(abbrev)
+    point && point[:mid]
+  end
 
-    def min(abbrev)
-      point = find_point(abbrev)
-      point && point[:min]
-    end
+  def self.min(abbrev)
+    point = find_point(abbrev)
+    point && point[:min]
+  end
 
-    def max(abbrev)
-      point = find_point(abbrev)
-      point && point[:max]
-    end
+  def self.max(abbrev)
+    point = find_point(abbrev)
+    point && point[:max]
+  end
 
-    def min_max(abbrev)
-      point = find_point(abbrev)
-      point && [point[:min], point[:max]]
-    end
+  def self.min_max(abbrev)
+    point = find_point(abbrev)
+    point && [point[:min], point[:max]]
+  end
 
-    def name(abbrev)
-      point = find_point(abbrev)
-      point && point[:name]
-    end
+  def self.name(abbrev)
+    point = find_point(abbrev)
+    point && point[:name]
+  end
 
-    def compass_quadrant_bearing(bearing)
-      b = bearing.round
-      case b
-      when 0, 360
-        'N'
-      when 90
-        'E'
-      when 180
-        'S'
-      when 270
-        'W'
-      else
-        s = []
-        s << north_or_south(b)
-        if north_or_south(b) == 'N'
-          if east_or_west(b) == 'W'
-            s << (360 - b).abs.to_s
-          else
-            s << b.to_s
-          end
+  def self.compass_quadrant_bearing(bearing)
+    b = bearing.round
+    case b
+    when 0, 360
+      'N'
+    when 90
+      'E'
+    when 180
+      'S'
+    when 270
+      'W'
+    else
+      s = []
+      s << north_or_south(b)
+      if north_or_south(b) == 'N'
+        if east_or_west(b) == 'W'
+          s << (360 - b).abs.to_s
         else
-          s << (180 - b).abs.to_s
+          s << b.to_s
         end
-        s.last << '°'
-        s << east_or_west(b)
-        s.join(' ')
-      end
-    end
-
-    private
-
-    def north_or_south(bearing)
-      b = bearing.round
-      if (0..90).include?(b.to_i) || (270..360).include?(b.to_i)
-        'N'
       else
-        'S'
+        s << (180 - b).abs.to_s
       end
+      s.last << '°'
+      s << east_or_west(b)
+      s.join(' ')
     end
+  end
 
-    def east_or_west(bearing)
-      b = bearing.round
-      (180..360).include?(b.to_i) ? 'W' : 'E'
-    end
+  private
 
-    def find_point(abbrev)
-      key = normalize_abbrev(abbrev)
-      POINTS[key]
+  def self.north_or_south(bearing)
+    b = bearing.round
+    if (0..90).include?(b.to_i) || (270..360).include?(b.to_i)
+      'N'
+    else
+      'S'
     end
+  end
 
-    def normalize_abbrev(abbrev)
-      abbrev.to_s.downcase.to_sym
-    end
+  def self.east_or_west(bearing)
+    b = bearing.round
+    (180..360).include?(b.to_i) ? 'W' : 'E'
+  end
+
+  def self.find_point(abbrev)
+    key = normalize_abbrev(abbrev)
+    POINTS[key]
+  end
+
+  def self.normalize_abbrev(abbrev)
+    abbrev.to_s.downcase.to_sym
   end
 end
