@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class CompassPoint
   VERSION = '1.1.0'
 
