@@ -1,16 +1,18 @@
-language: ruby
-sudo: false
-rvm:
-  - 2.2.2
-  - 2.1.6
-  - 2.0.0
-  - jruby-head
+addons:
+  code_climate:
+    repo_token: 363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
 branches:
   only:
     - master
 bundler_args: --without development
-script: bundle exec rspec
 gemfile: Gemfile.travis
-addons:
-  code_climate:
-    repo_token: 363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
+language: ruby
+rvm:
+  - 2.0.0
+  - 2.1.10
+  - 2.2.6
+  - 2.3.3
+  - 2.4.0
+  - jruby-19mode
+script: bundle exec rspec
+sudo: false
