@@ -1,8 +1,9 @@
-gemspec
 source 'https://rubygems.org'
 
+gemspec
+
 group :test do
-  gem 'rubysl', :platform => :rbx
   gem 'rspec'
-  gem 'codeclimate-test-reporter', :require => false, :platform => :ruby
+  gem 'simplecov', platform: :ruby
+  gem 'codeclimate-test-reporter'
 end
