@@ -74,10 +74,10 @@ class CompassPoint
       s = []
       s << north_or_south(b)
       if north_or_south(b) == 'N'
-        if east_or_west(b) == 'W'
-          s << (360 - b).abs.to_s
+        s << if east_or_west(b) == 'W'
+          (360 - b).abs.to_s
         else
-          s << b.to_s
+          b.to_s
         end
       else
         s << (180 - b).abs.to_s
