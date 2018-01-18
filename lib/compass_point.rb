@@ -66,14 +66,10 @@ class CompassPoint
   def self.compass_quadrant_bearing(bearing)
     b = bearing.round
     case b
-    when 0, 360
-      'N'
-    when 90
-      'E'
-    when 180
-      'S'
-    when 270
-      'W'
+    when 0, 360 then 'N'
+    when 90     then 'E'
+    when 180    then 'S'
+    when 270    then 'W'
     else
       s = []
       s << north_or_south(b)
