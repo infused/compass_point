@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 
 
 group :development, :test do
-  gem 'rspec'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'rspec'
+  gem 'rubocop'
 end
