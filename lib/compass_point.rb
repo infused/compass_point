@@ -92,11 +92,7 @@ class CompassPoint
 
   def self.north_or_south(bearing)
     b = bearing.round
-    if (0..90).include?(b.to_i) || (270..360).include?(b.to_i)
-      'N'
-    else
-      'S'
-    end
+    (0..90).include?(b.to_i) || (270..360).include?(b.to_i) ? 'N' : 'S'
   end
 
   def self.east_or_west(bearing)
