@@ -7,6 +7,7 @@ before_script:
 env:
   global:
     - CC_TEST_REPORTER_ID=363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
+    - COVERAGE=true
 branches:
   only:
     - master
