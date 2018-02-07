@@ -4,6 +4,4 @@ gemspec
 
 group :test do
   gem 'rspec'
-  gem 'simplecov', platform: :ruby
-  gem 'codeclimate-test-reporter'
 end

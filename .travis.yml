@@ -4,21 +4,22 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+env:
+  global:
+    - CC_TEST_REPORTER_ID=363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
 branches:
   only:
     - master
 bundler_args: --without development
-env:
-  global:
-    - CC_TEST_REPORTER_ID=363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
 gemfile: Gemfile.travis
 language: ruby
 rvm:
   - 2.0.0
   - 2.1.10
-  - 2.2.6
-  - 2.3.3
-  - 2.4.0
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
   - jruby-19mode
 script: bundle exec rspec
 sudo: false
