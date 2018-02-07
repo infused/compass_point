@@ -5,7 +5,7 @@ branches:
 bundler_args: --without development
 env:
   global:
-    secure: xel5mj9lZv22Cq2eyLI5vzrYQqkHUCdXq6bRJMDAjsqQ0ldWSAlImmArTb/OUZ9W7E4qeUYdZJdS9ayAyRjBog3rtSYBBAQDdoK2RmDNOv+8t5NDSAfMdtpDpZonr1MUETXmcfCWiqp69uBs9rFTM1CXSdlDBcpBUkSI3QOlPhE=
+    - CODECLIMATE_REPO_TOKEN=363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
 gemfile: Gemfile.travis
 language: ruby
 rvm:
