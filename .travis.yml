@@ -1,11 +1,7 @@
-after_success: bundle exec codeclimate-test-report
 branches:
   only:
     - master
 bundler_args: --without development
-env:
-  global:
-    - CODECLIMATE_REPO_TOKEN=363d68d956ebca6bbcd687918bd9865770641f0c3a6610b21f8c833cc8d2de2c
 gemfile: Gemfile.travis
 language: ruby
 rvm:
