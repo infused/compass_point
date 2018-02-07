@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 class CompassPoint
-  VERSION = '1.1.0'
+  VERSION = '1.1.0'.freeze
 
   POINTS = {
     n:    {min: 354.38, mid: 0.0,    max: 5.62,   name: 'North'},
@@ -38,8 +38,8 @@ class CompassPoint
     nbw:  {min: 343.13, mid: 348.75, max: 354.37, name: 'North by west'}
   }
 
-  def self.azimuth(abbrev)
-    point = find_point(abbrev)
+  def self.azimuth(name)
+    point = find_point(name)
     point && point[:mid]
   end
 
@@ -100,12 +100,19 @@ class CompassPoint
     (180..360).include?(b.to_i) ? 'W' : 'E'
   end
 
-  def self.find_point(abbrev)
-    key = normalize_abbrev(abbrev)
-    POINTS[key]
+  def self.find_point(s)
+    find_point_by_abbrev(s) || find_point_by_name(s)
   end
 
-  def self.normalize_abbrev(abbrev)
-    abbrev.to_s.downcase.to_sym
+  def self.find_point_by_abbrev(s)
+    POINTS[normalize_name(s).to_sym]
+  end
+
+  def self.find_point_by_name(s)
+    POINTS.values.find { |v| v[:name].downcase == normalize_name(s) }
+  end
+
+  def self.normalize_name(name)
+    name.to_s.strip.squeeze(' ').downcase
   end
 end

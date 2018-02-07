@@ -9,6 +9,7 @@ describe CompassPoint do
       expect(CompassPoint.azimuth(:nw)).to eq 315.0
       expect(CompassPoint.azimuth('sbw')).to eq 191.25
       expect(CompassPoint.azimuth('X')).to be_nil
+      expect(CompassPoint.azimuth('Northeast by east')).to eq 56.25
     end
   end
 
@@ -18,6 +19,7 @@ describe CompassPoint do
       expect(CompassPoint.min(:nw)).to eq 309.38
       expect(CompassPoint.min('sbw')).to eq 185.63
       expect(CompassPoint.min('X')).to be_nil
+      expect(CompassPoint.min('Northeast by east')).to eq 50.63
     end
   end
 
@@ -27,6 +29,7 @@ describe CompassPoint do
       expect(CompassPoint.max(:nw)).to eq 320.62
       expect(CompassPoint.max('sbw')).to eq 196.87
       expect(CompassPoint.max('X')).to be_nil
+      expect(CompassPoint.max('Northeast by east')).to eq 61.87
     end
   end
 
@@ -36,6 +39,7 @@ describe CompassPoint do
       expect(CompassPoint.min_max(:nw)).to eq [309.38, 320.62]
       expect(CompassPoint.min_max('sbw')).to eq [185.63, 196.87]
       expect(CompassPoint.min_max('X')).to be_nil
+      expect(CompassPoint.min_max('Northeast by east')).to eq [50.63, 61.87]
     end
   end
 
