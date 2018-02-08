@@ -27,13 +27,14 @@ Compass Point is tested to work with the following versions of ruby:
 
 ### Azimuth
 
-Given an string such as "NW", "SE", or "Northeast by east", `azimuth` will
+Given an string such as "NW", "SE", "Northeast by east", or "N 20° W", `azimuth` will
 return the corresponding azimuth in degrees from 0 to 360:
 
     CompassPoint.azimuth('N') #=> 0.0
     CompassPoint.azimuth('S') #=> 180.0
     CompassPoint.azimuth('swbs') #=> 213.75
     CompassPoint.azimuth('Northeast by east') #=> 56.25
+    CompassPoint.azimuth('N 20° W') #=> 340
 
 You can also get the minimum and maximum azimuths for any
 abbreviation with `min`, `max` and `min_max`:

@@ -8,6 +8,12 @@ describe CompassPoint do
       expect(CompassPoint.azimuth('sbw')).to eq 191.25
       expect(CompassPoint.azimuth('X')).to be_nil
       expect(CompassPoint.azimuth('Northeast by east')).to eq 56.25
+      expect(CompassPoint.azimuth('N 27° E')).to eq 27
+      expect(CompassPoint.azimuth('S 77° E')).to eq 103
+      expect(CompassPoint.azimuth('S 2° E')).to eq 178
+      expect(CompassPoint.azimuth('N 77° W')).to eq 283
+      expect(CompassPoint.azimuth('N 20 W')).to eq 340
+      expect(CompassPoint.azimuth('S 30° W')).to eq 210
     end
   end
 

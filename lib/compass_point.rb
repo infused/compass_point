@@ -1,5 +1,5 @@
 class CompassPoint
-  VERSION = '1.1.0'.freeze
+  VERSION = '1.2.0'.freeze
 
   POINTS = {
     n:    {min: 354.38, mid: 0.0,    max: 5.62,   name: 'North'},
@@ -37,28 +37,46 @@ class CompassPoint
   }.freeze
 
   class << self
-    def azimuth(name)
-      point = find_point(name)
-      point && point[:mid]
+    def azimuth(s)
+      input = normalize_input(s)
+      if point = find_point(input)
+        point[:mid]
+      elsif match = input.match(/(n|s)\s(\d{1,3}).?\s(e|w)/)
+        base = if match[1] == 'n'
+          match[3] == 'w' ? 360 : 0
+        else
+          180
+        end
+
+        adjust = match[2].to_i
+
+        operation = if (match[1] == 'n' && match[3] == 'w') || (match[1] == 's' && match[3] == 'e')
+          :-
+        else
+          :+
+        end
+
+        base.send(operation, adjust)
+      end
     end
 
-    def min(abbrev)
-      point = find_point(abbrev)
+    def min(s)
+      point = find_point(normalize_input(s))
       point && point[:min]
     end
 
-    def max(abbrev)
-      point = find_point(abbrev)
+    def max(s)
+      point = find_point(normalize_input(s))
       point && point[:max]
     end
 
-    def min_max(abbrev)
-      point = find_point(abbrev)
+    def min_max(s)
+      point = find_point(normalize_input(s))
       point && [point[:min], point[:max]]
     end
 
-    def name(abbrev)
-      point = find_point(abbrev)
+    def name(s)
+      point = find_point(normalize_input(s))
       point && point[:name]
     end
 
@@ -104,14 +122,14 @@ class CompassPoint
     end
 
     def find_point_by_abbrev(s)
-      POINTS[normalize_name(s).to_sym]
+      POINTS[s.to_sym]
     end
 
     def find_point_by_name(s)
-      POINTS.values.find { |v| v[:name].downcase == normalize_name(s) }
+      POINTS.values.find { |v| v[:name].downcase == s }
     end
 
-    def normalize_name(name)
+    def normalize_input(name)
       name.to_s.strip.squeeze(' ').downcase
     end
   end
