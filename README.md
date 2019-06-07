@@ -36,6 +36,12 @@ return the corresponding azimuth in degrees from 0 to 360:
     CompassPoint.azimuth('Northeast by east') #=> 56.25
     CompassPoint.azimuth('N 20° W') #=> 340
 
+Use `back_azimuth` to find the opposite azimuth:
+
+    CompassPoint.azimuth('N') #=> 180.0
+    CompassPoint.azimuth('S') #=> 0.0
+    CompassPoint.azimuth('swbs') #=> 33.75
+
 You can also get the minimum and maximum azimuths for any
 abbreviation with `min`, `max` and `min_max`:
 

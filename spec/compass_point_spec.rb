@@ -17,6 +17,22 @@ describe CompassPoint do
     end
   end
 
+  describe '.back_azimuth' do
+    it 'returns opposite of azimuth' do
+      expect(CompassPoint.back_azimuth('N')).to eq 180.0
+      expect(CompassPoint.back_azimuth(:nw)).to eq 135.0
+      expect(CompassPoint.back_azimuth('sbw')).to eq 11.25
+      expect(CompassPoint.back_azimuth('X')).to be_nil
+      expect(CompassPoint.back_azimuth('Northeast by east')).to eq 236.25
+      expect(CompassPoint.back_azimuth('N 27° E')).to eq 207
+      expect(CompassPoint.back_azimuth('S 77° E')).to eq 283
+      expect(CompassPoint.back_azimuth('S 2° E')).to eq 358
+      expect(CompassPoint.back_azimuth('N 77° W')).to eq 103
+      expect(CompassPoint.back_azimuth('N 20 W')).to eq 160
+      expect(CompassPoint.back_azimuth('S 30° W')).to eq 30
+    end
+  end
+
   describe '.min' do
     it 'returns min point in degrees' do
       expect(CompassPoint.min('N')).to eq 354.38

@@ -1,5 +1,5 @@
 class CompassPoint
-  VERSION = '1.2.0'.freeze
+  VERSION = '1.2.1'.freeze
 
   POINTS = {
     n:    {min: 354.38, mid: 0.0,    max: 5.62,   name: 'North'},
@@ -58,6 +58,13 @@ class CompassPoint
 
         base.send(operation, adjust)
       end
+    end
+
+    def back_azimuth(s)
+      azm = azimuth(s)
+      return if azm.nil?
+
+      azm > 180 ? azm - 180 : azm + 180
     end
 
     def min(s)
