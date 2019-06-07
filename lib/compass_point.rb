@@ -1,6 +1,8 @@
 class CompassPoint
   VERSION = '1.2.1'.freeze
 
+  COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/.freeze
+
   POINTS = {
     n:    {min: 354.38, mid: 0.0,    max: 5.62,   name: 'North'},
     nbe:  {min: 5.63,   mid: 11.25,  max: 16.87,  name: 'North by east'},
@@ -41,22 +43,8 @@ class CompassPoint
       input = normalize_input(s)
       if point = find_point(input)
         point[:mid]
-      elsif match = input.match(/(n|s)\s(\d{1,3}).?\s(e|w)/)
-        base = if match[1] == 'n'
-          match[3] == 'w' ? 360 : 0
-        else
-          180
-        end
-
-        adjust = match[2].to_i
-
-        operation = if (match[1] == 'n' && match[3] == 'w') || (match[1] == 's' && match[3] == 'e')
-          :-
-        else
-          :+
-        end
-
-        base.send(operation, adjust)
+      elsif match = input.match(COMPASS_BEARING_REGEX)
+        azimuth_from_match(match)
       end
     end
 
@@ -100,6 +88,24 @@ class CompassPoint
     end
 
     private
+
+    def azimuth_from_match(match)
+      base = if match[1] == 'n'
+        match[3] == 'w' ? 360 : 0
+      else
+        180
+      end
+
+      adjust = match[2].to_i
+
+      operation = if (match[1] == 'n' && match[3] == 'w') || (match[1] == 's' && match[3] == 'e')
+        :-
+      else
+        :+
+      end
+
+      base.send(operation, adjust)
+    end
 
     def generate_compass_quadrant_bearing(b)
       s = []
