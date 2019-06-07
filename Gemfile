@@ -6,6 +6,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'irb'
   gem 'rspec'
-  gem 'rubocop-rspec'
   gem 'rubocop-performance'
+  gem 'rubocop-rspec'
 end
