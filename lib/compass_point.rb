@@ -145,5 +145,13 @@ class CompassPoint
     def normalize_input(name)
       name.to_s.strip.squeeze(' ').downcase
     end
+
+    def radians_to_degrees(radians)
+      radians * 180 / Math::PI
+    end
+
+    def degrees_to_radians(degrees)
+      degrees * Math::PI / 180
+    end
   end
 end
