@@ -1,6 +1,53 @@
 require 'spec_helper'
 
 describe CompassPoint do
+  describe 'POINTS' do
+    names = {
+      n: {name: 'North'},
+      nbe: {name: 'North by east'},
+      nne: {name: 'North-northeast'},
+      nebn: {name: 'Northeast by north'},
+      ne: {name: 'Northeast'},
+      nebe: {name: 'Northeast by east'},
+      ene: {name: 'East-northeast'},
+      ebn: {name: 'East by north'},
+      e: {name: 'East'},
+      ebs: {name: 'East by south'},
+      ese: {name: 'East-southeast'},
+      sebe: {name: 'Southeast by east'},
+      se: {name: 'Southeast'},
+      sebs: {name: 'Southeast by south'},
+      sse: {name: 'South-southeast'},
+      sbe: {name: 'South by east'},
+      s: {name: 'South'},
+      sbw: {name: 'South by west'},
+      ssw: {name: 'South southwest'},
+      swbs: {name: 'Southwest by south'},
+      sw: {name: 'Southwest'},
+      swbw: {name: 'Southwest by west'},
+      wsw: {name: 'West-southwest'},
+      wbs: {name: 'West by south'},
+      w: {name: 'West'},
+      wbn: {name: 'West by north'},
+      wnw: {name: 'West-northwest'},
+      nwbw: {name: 'Northwest by west'},
+      nw: {name: 'Northwest'},
+      nwbn: {name: 'Northwest by north'},
+      nnw: {name: 'North northwest'},
+      nbw: {name: 'North by west'}
+    }
+
+    one_thirty_second = Math::PI * 2 / 32
+    one_sixty_fourth = Math::PI * 2 / 64
+    names.each_with_index do |(key, hash), index|
+      hash[:min] = CompassPoint.send :radians_to_degrees, ((one_thirty_second * index) - one_sixty_fourth)
+      hash[:mid] = CompassPoint.send :radians_to_degrees, one_thirty_second * index
+      hash[:max] = CompassPoint.send :radians_to_degrees, ((one_thirty_second * index) + one_sixty_fourth)
+    end
+    puts names.inspect
+
+  end
+
   describe '.azimuth' do
     it 'returns mid point in degrees' do
       expect(CompassPoint.azimuth('N')).to eq 0.0
