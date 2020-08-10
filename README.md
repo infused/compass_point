@@ -16,7 +16,7 @@ A Ruby library for working with compass points.
 
 Compass Point is tested to work with the following versions of ruby:
 
-* MRI Ruby 2.0.x, 2.1.x, 2.2.x, 2.3.x, 2.4.x, 2.5.x, 2.6.x
+* MRI Ruby 2.0.x, 2.1.x, 2.2.x, 2.3.x, 2.4.x, 2.5.x, 2.7.x
 * JRuby 1.7.x
 
 ## Installation
@@ -69,7 +69,7 @@ example:
 
 ## License
 
-Copyright (c) 2015-2019 Keith Morrison <<keithm@infused.org>>
+Copyright (c) 2015-2020 Keith Morrison <<keithm@infused.org>>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
