@@ -1,6 +1,6 @@
 # Compass Point
 [![Version](http://img.shields.io/gem/v/compass_point.svg?style=flat)](https://rubygems.org/gems/compass_point)
-[![Build Status](http://img.shields.io/travis/infused/compass_point/master.svg?style=flat)](http://travis-ci.com/infused/compass_point)
+[![Build Status](https://github.com/infused/compass_point/actions/workflows/build.yml/badge.svg)](https://github.com/infused/compass_point/actions/workflows/build.yml)
 [![Total Downloads](https://img.shields.io/gem/dt/compass_point.svg)](https://rubygems.org/gems/compass_point/)
 [![License](https://img.shields.io/github/license/infused/compass_point.svg)](https://github.com/infused/compass_point)
 
