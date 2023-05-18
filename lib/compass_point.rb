@@ -1,5 +1,5 @@
 class CompassPoint
-  VERSION = '1.2.1'.freeze
+  VERSION = '2.0.0'.freeze
 
   COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/.freeze
 
