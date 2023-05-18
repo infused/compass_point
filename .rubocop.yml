@@ -2,10 +2,14 @@ require:
   - rubocop-performance
   - rubocop-rspec
 
-Gemspec/RequiredRubyVersion:
-  Enabled: false
+AllCops:
+  NewCops: enable
 
-Layout/AlignParameters:
+Layout/ArgumentAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ParameterAlignment:
   Enabled: true
   EnforcedStyle: with_fixed_indentation
 
@@ -22,29 +26,38 @@ Layout/EndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: start_of_line
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
+  Enabled: true
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
+  Enabled: true
   EnforcedStyle: consistent
+
+Layout/LineLength:
+  Enabled: false
 
 Layout/MultilineHashBraceLayout:
   Enabled: true
   EnforcedStyle: symmetrical
 
 Layout/MultilineMethodCallIndentation:
+  Enabled: true
   EnforcedStyle: indented
 
 Layout/MultilineOperationIndentation:
+  Enabled: true
   EnforcedStyle: indented
 
 Layout/RescueEnsureAlignment:
   Enabled: false
 
 Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
   EnforcedStyle: no_space
 
 Layout/SpaceInLambdaLiteral:
+  Enabled: true
   EnforcedStyle: require_space
 
 Layout/TrailingWhitespace:
@@ -56,10 +69,13 @@ Lint/AmbiguousBlockAssociation:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/SuppressedException:
+  Enabled: true
+
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
 
-Lint/UnneededSplatExpansion:
+Lint/RedundantSplatExpansion:
   Enabled: false
 
 Metrics/AbcSize:
@@ -68,18 +84,14 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   CountComments: false
   Enabled: true
-  Exclude:
-    - spec/**/*_spec.rb
   Max: 100
 
 Metrics/ClassLength:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
+  Enabled: true
   Max: 10
-
-Metrics/LineLength:
-  Enabled: false
 
 Metrics/MethodLength:
   Enabled: false
@@ -88,24 +100,35 @@ Metrics/ModuleLength:
   Enabled: false
 
 Metrics/PerceivedComplexity:
+  Enabled: true
   Max: 10
+
+Naming/AccessorMethodName:
+  Enabled: true
 
 Naming/FileName:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
-Rails/TimeZone:
-  EnforcedStyle: strict
+Naming/PredicateName:
+  Enabled: true
+
+Naming/VariableNumber:
+  Enabled: false
 
 RSpec/AnyInstance:
   Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: true
 
 RSpec/DescribedClass:
   Enabled: false
 
 RSpec/ExampleLength:
+  Enabled: true
   Max: 25
 
 RSpec/HookArgument:
@@ -124,10 +147,18 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/NestedGroups:
+  Enabled: true
   Max: 5
 
 RSpec/NotToNot:
+  Enabled: true
   EnforcedStyle: to_not
+
+RSpec/VerifiedDoubleReference:
+  Enabled: false
+
+Security/YAMLLoad:
+  Enabled: true
 
 Style/Alias:
   Enabled: false
@@ -139,6 +170,7 @@ Style/Documentation:
   Enabled: false
 
 Style/EmptyMethod:
+  Enabled: true
   EnforcedStyle: expanded
 
 Style/FormatStringToken:
@@ -169,4 +201,5 @@ Style/SafeNavigation:
   Enabled: false
 
 Style/SymbolArray:
+  Enabled: true
   EnforcedStyle: brackets
