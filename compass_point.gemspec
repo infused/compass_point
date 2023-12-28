@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
   s.files = Dir['LICENSE', 'README.md', '{lib,spec}/**/*.rb', 'compass_points.gemspec']
   s.require_paths = ['lib']
 
-  s.required_ruby_version = '>= 3.0.0'
+  s.required_ruby_version = '>= 3.1.0'
   s.metadata['rubygems_mfa_required'] = 'true'
 end

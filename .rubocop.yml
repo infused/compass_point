@@ -5,201 +5,39 @@ require:
 AllCops:
   NewCops: enable
 
-Layout/ArgumentAlignment:
-  Enabled: true
-  EnforcedStyle: with_fixed_indentation
-
-Layout/ParameterAlignment:
-  Enabled: true
-  EnforcedStyle: with_fixed_indentation
-
-Layout/CaseIndentation:
-  Enabled: false
-
-Layout/ElseAlignment:
-  Enabled: false
-
-Layout/EmptyLinesAroundBlockBody:
+Gemspec/RequiredRubyVersion:
   Enabled: false
 
 Layout/EndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: start_of_line
 
-Layout/FirstArrayElementIndentation:
-  Enabled: true
-  EnforcedStyle: consistent
-
-Layout/FirstHashElementIndentation:
-  Enabled: true
-  EnforcedStyle: consistent
-
-Layout/LineLength:
-  Enabled: false
-
-Layout/MultilineHashBraceLayout:
-  Enabled: true
-  EnforcedStyle: symmetrical
-
-Layout/MultilineMethodCallIndentation:
-  Enabled: true
-  EnforcedStyle: indented
-
-Layout/MultilineOperationIndentation:
-  Enabled: true
-  EnforcedStyle: indented
-
-Layout/RescueEnsureAlignment:
-  Enabled: false
-
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: true
   EnforcedStyle: no_space
 
-Layout/SpaceInLambdaLiteral:
-  Enabled: true
-  EnforcedStyle: require_space
-
-Layout/TrailingWhitespace:
-  Enabled: false
-
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
-
-Lint/AssignmentInCondition:
-  Enabled: false
-
-Lint/SuppressedException:
-  Enabled: true
-
-Lint/ShadowingOuterLocalVariable:
-  Enabled: false
-
-Lint/RedundantSplatExpansion:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/BlockLength:
-  CountComments: false
-  Enabled: true
-  Max: 100
-
 Metrics/ClassLength:
   Enabled: false
 
-Metrics/CyclomaticComplexity:
-  Enabled: true
-  Max: 10
-
 Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ModuleLength:
   Enabled: false
 
 Metrics/PerceivedComplexity:
   Enabled: true
   Max: 10
 
-Naming/AccessorMethodName:
-  Enabled: true
-
-Naming/FileName:
-  Enabled: false
-
 Naming/MethodParameterName:
-  Enabled: false
-
-Naming/PredicateName:
-  Enabled: true
-
-Naming/VariableNumber:
-  Enabled: false
-
-RSpec/AnyInstance:
-  Enabled: false
-
-RSpec/DescribeClass:
-  Enabled: true
-
-RSpec/DescribedClass:
   Enabled: false
 
 RSpec/ExampleLength:
   Enabled: true
   Max: 25
 
-RSpec/HookArgument:
-  Enabled: false
-
-RSpec/ImplicitSubject:
-  Enabled: false
-
-RSpec/LetSetup:
-  Enabled: false
-
-RSpec/MessageSpies:
-  Enabled: false
-
 RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/NestedGroups:
-  Enabled: true
-  Max: 5
-
-RSpec/NotToNot:
-  Enabled: true
-  EnforcedStyle: to_not
-
-RSpec/VerifiedDoubleReference:
-  Enabled: false
-
-Security/YAMLLoad:
-  Enabled: true
-
-Style/Alias:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Style/EmptyMethod:
-  Enabled: true
-  EnforcedStyle: expanded
-
-Style/FormatStringToken:
-  Enabled: false
-
-Style/GuardClause:
-  Enabled: false
-
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-Style/Lambda:
-  Enabled: false
-
-Style/NumericPredicate:
-  Enabled: false
-
-Style/PerlBackrefs:
-  Enabled: false
-
-Style/RedundantBegin:
-  Enabled: false
-
-Style/RescueModifier:
-  Enabled: false
-
-Style/SafeNavigation:
-  Enabled: false
-
-Style/SymbolArray:
-  Enabled: true
-  EnforcedStyle: brackets
