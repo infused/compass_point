@@ -1,7 +1,7 @@
 class CompassPoint
   VERSION = '3.0.0'.freeze
 
-  COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/
+  COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/i.freeze
 
   POINTS = {
     n: {min: 354.38, mid: 0.0, max: 5.62, name: 'North'},
