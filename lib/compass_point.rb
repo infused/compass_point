@@ -40,6 +40,8 @@ class CompassPoint
 
   class << self
     def azimuth(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+      
       input = normalize_input(s)
       if (point = find_point(input))
         point[:mid]
@@ -56,26 +58,37 @@ class CompassPoint
     end
 
     def min(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+      
       point = find_point(normalize_input(s))
       point && point[:min]
     end
 
     def max(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+      
       point = find_point(normalize_input(s))
       point && point[:max]
     end
 
     def min_max(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+      
       point = find_point(normalize_input(s))
       point && [point[:min], point[:max]]
     end
 
     def name(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+      
       point = find_point(normalize_input(s))
       point && point[:name]
     end
 
     def compass_quadrant_bearing(bearing)
+      return nil unless bearing.is_a?(Numeric)
+      return nil if bearing < 0 || bearing > 360
+      
       b = bearing.round
       case b
       when 0, 360 then 'N'
@@ -90,11 +103,13 @@ class CompassPoint
     private
 
     def azimuth_from_match(match)
-      north_south, degrees, east_west = match[1], match[2].to_i, match[3]
-      
+      north_south = match[1]
+      degrees = match[2].to_i
+      east_west = match[3]
+
       base = base_azimuth(north_south, east_west)
       operation = azimuth_operation(north_south, east_west)
-      
+
       base.send(operation, degrees)
     end
 

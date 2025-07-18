@@ -15,6 +15,30 @@ describe CompassPoint do
       expect(described_class.azimuth('N 20 W')).to eq 340
       expect(described_class.azimuth('S 30° W')).to eq 210
     end
+
+    it 'returns nil for nil input' do
+      expect(described_class.azimuth(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.azimuth('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.azimuth('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.azimuth(123)).to be_nil
+    end
+
+    it 'returns nil for array input' do
+      expect(described_class.azimuth([])).to be_nil
+    end
+
+    it 'returns nil for hash input' do
+      expect(described_class.azimuth({})).to be_nil
+    end
   end
 
   describe '.back_azimuth' do
@@ -31,6 +55,22 @@ describe CompassPoint do
       expect(described_class.back_azimuth('N 20 W')).to eq 160
       expect(described_class.back_azimuth('S 30° W')).to eq 30
     end
+
+    it 'returns nil for nil input' do
+      expect(described_class.back_azimuth(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.back_azimuth('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.back_azimuth('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.back_azimuth(123)).to be_nil
+    end
   end
 
   describe '.min' do
@@ -40,6 +80,22 @@ describe CompassPoint do
       expect(described_class.min('sbw')).to eq 185.63
       expect(described_class.min('X')).to be_nil
       expect(described_class.min('Northeast by east')).to eq 50.63
+    end
+
+    it 'returns nil for nil input' do
+      expect(described_class.min(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.min('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.min('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.min(123)).to be_nil
     end
   end
 
@@ -51,6 +107,22 @@ describe CompassPoint do
       expect(described_class.max('X')).to be_nil
       expect(described_class.max('Northeast by east')).to eq 61.87
     end
+
+    it 'returns nil for nil input' do
+      expect(described_class.max(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.max('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.max('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.max(123)).to be_nil
+    end
   end
 
   describe '.min_max' do
@@ -61,16 +133,52 @@ describe CompassPoint do
       expect(described_class.min_max('X')).to be_nil
       expect(described_class.min_max('Northeast by east')).to eq [50.63, 61.87]
     end
+
+    it 'returns nil for nil input' do
+      expect(described_class.min_max(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.min_max('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.min_max('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.min_max(123)).to be_nil
+    end
   end
 
   describe '.name' do
     it 'returns the points full name' do
       expect(described_class.name('nnw')).to eq 'North northwest'
     end
+
+    it 'returns nil for nil input' do
+      expect(described_class.name(nil)).to be_nil
+    end
+
+    it 'returns nil for empty string' do
+      expect(described_class.name('')).to be_nil
+    end
+
+    it 'returns nil for whitespace-only string' do
+      expect(described_class.name('   ')).to be_nil
+    end
+
+    it 'returns nil for numeric input' do
+      expect(described_class.name(123)).to be_nil
+    end
+
+    it 'returns nil for invalid compass point' do
+      expect(described_class.name('invalid')).to be_nil
+    end
   end
 
   describe '.compass_quadrant_bearing' do
-    it 'is' do
+    it 'converts bearing to compass quadrant format' do
       expect(described_class.compass_quadrant_bearing(0)).to eq 'N'
       expect(described_class.compass_quadrant_bearing(27)).to eq 'N 27° E'
       expect(described_class.compass_quadrant_bearing(27.4)).to eq 'N 27° E'
@@ -84,6 +192,38 @@ describe CompassPoint do
       expect(described_class.compass_quadrant_bearing(283)).to eq 'N 77° W'
       expect(described_class.compass_quadrant_bearing(340)).to eq 'N 20° W'
       expect(described_class.compass_quadrant_bearing(360)).to eq 'N'
+    end
+
+    it 'returns nil for nil input' do
+      expect(described_class.compass_quadrant_bearing(nil)).to be_nil
+    end
+
+    it 'returns nil for string input' do
+      expect(described_class.compass_quadrant_bearing('123')).to be_nil
+    end
+
+    it 'returns nil for array input' do
+      expect(described_class.compass_quadrant_bearing([])).to be_nil
+    end
+
+    it 'returns nil for hash input' do
+      expect(described_class.compass_quadrant_bearing({})).to be_nil
+    end
+
+    it 'returns nil for negative bearing' do
+      expect(described_class.compass_quadrant_bearing(-1)).to be_nil
+    end
+
+    it 'returns nil for bearing over 360' do
+      expect(described_class.compass_quadrant_bearing(361)).to be_nil
+    end
+
+    it 'returns nil for large negative bearing' do
+      expect(described_class.compass_quadrant_bearing(-90)).to be_nil
+    end
+
+    it 'returns nil for large positive bearing' do
+      expect(described_class.compass_quadrant_bearing(450)).to be_nil
     end
   end
 end
