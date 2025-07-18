@@ -39,6 +39,51 @@ describe CompassPoint do
     it 'returns nil for hash input' do
       expect(described_class.azimuth({})).to be_nil
     end
+
+    it 'handles case insensitive input' do
+      expect(described_class.azimuth('N')).to eq described_class.azimuth('n')
+      expect(described_class.azimuth('NW')).to eq described_class.azimuth('nw')
+      expect(described_class.azimuth('Northeast by East')).to eq described_class.azimuth('northeast by east')
+    end
+
+    it 'handles extra whitespace in input' do
+      expect(described_class.azimuth('  N  ')).to eq 0.0
+      expect(described_class.azimuth('Northeast   by   east')).to eq 56.25
+      expect(described_class.azimuth('N  27°  E')).to eq 27
+    end
+
+    it 'handles compass bearing without degree symbol' do
+      expect(described_class.azimuth('N 27 E')).to eq 27
+      expect(described_class.azimuth('S 77 E')).to eq 103
+      expect(described_class.azimuth('N 77 W')).to eq 283
+    end
+
+    it 'handles three-digit compass bearings' do
+      expect(described_class.azimuth('N 180 E')).to be_nil
+      expect(described_class.azimuth('N 90 E')).to eq 90
+      expect(described_class.azimuth('S 90 W')).to eq 270
+    end
+
+    it 'handles mixed case compass bearings' do
+      expect(described_class.azimuth('n 27° e')).to eq 27
+      expect(described_class.azimuth('S 77° e')).to eq 103
+      expect(described_class.azimuth('N 77° w')).to eq 283
+    end
+
+    it 'returns nil for invalid compass bearings' do
+      expect(described_class.azimuth('N 91 E')).to be_nil
+      expect(described_class.azimuth('N -1 E')).to be_nil
+      expect(described_class.azimuth('X 45 Y')).to be_nil
+      expect(described_class.azimuth('N E')).to be_nil
+      expect(described_class.azimuth('45 N E')).to be_nil
+    end
+
+    it 'handles boundary degree values' do
+      expect(described_class.azimuth('N 0 E')).to eq 0
+      expect(described_class.azimuth('N 90 E')).to eq 90
+      expect(described_class.azimuth('S 90 E')).to eq 90
+      expect(described_class.azimuth('S 90 W')).to eq 270
+    end
   end
 
   describe '.back_azimuth' do
@@ -224,6 +269,33 @@ describe CompassPoint do
 
     it 'returns nil for large positive bearing' do
       expect(described_class.compass_quadrant_bearing(450)).to be_nil
+    end
+
+    it 'handles edge case at 360 degrees' do
+      expect(described_class.compass_quadrant_bearing(360)).to eq 'N'
+      expect(described_class.compass_quadrant_bearing(360.0)).to eq 'N'
+    end
+
+    it 'handles floating point precision near boundaries' do
+      expect(described_class.compass_quadrant_bearing(0.4)).to eq 'N'
+      expect(described_class.compass_quadrant_bearing(0.5)).to eq 'N 1° E'
+      expect(described_class.compass_quadrant_bearing(89.4)).to eq 'N 89° E'
+      expect(described_class.compass_quadrant_bearing(89.5)).to eq 'E'
+      expect(described_class.compass_quadrant_bearing(90.4)).to eq 'E'
+      expect(described_class.compass_quadrant_bearing(90.5)).to eq 'S 89° E'
+    end
+
+    it 'handles exact quadrant boundaries' do
+      expect(described_class.compass_quadrant_bearing(0.0)).to eq 'N'
+      expect(described_class.compass_quadrant_bearing(90.0)).to eq 'E'
+      expect(described_class.compass_quadrant_bearing(180.0)).to eq 'S'
+      expect(described_class.compass_quadrant_bearing(270.0)).to eq 'W'
+    end
+
+    it 'handles Float::INFINITY and Float::NAN' do
+      expect(described_class.compass_quadrant_bearing(Float::INFINITY)).to be_nil
+      expect(described_class.compass_quadrant_bearing(-Float::INFINITY)).to be_nil
+      expect(described_class.compass_quadrant_bearing(Float::NAN)).to be_nil
     end
   end
 end

@@ -88,7 +88,8 @@ class CompassPoint
     def compass_quadrant_bearing(bearing)
       return nil unless bearing.is_a?(Numeric)
       return nil if bearing < 0 || bearing > 360
-      
+      return nil if bearing.respond_to?(:nan?) && bearing.nan?
+      return nil if bearing.respond_to?(:infinite?) && bearing.infinite?
       b = bearing.round
       case b
       when 0, 360 then 'N'
@@ -106,6 +107,8 @@ class CompassPoint
       north_south = match[1]
       degrees = match[2].to_i
       east_west = match[3]
+
+      return nil if degrees.negative? || degrees > 90
 
       base = base_azimuth(north_south, east_west)
       operation = azimuth_operation(north_south, east_west)
