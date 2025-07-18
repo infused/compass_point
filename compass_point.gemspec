@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE']
-  s.files = Dir['LICENSE', 'README.md', '{lib,spec}/**/*.rb', 'compass_points.gemspec']
+  s.files = Dir['LICENSE', 'README.md', '{lib,spec}/**/*.rb', 'compass_point.gemspec']
   s.require_paths = ['lib']
 
   s.required_ruby_version = '>= 3.1.0'
