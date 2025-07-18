@@ -90,19 +90,28 @@ class CompassPoint
     private
 
     def azimuth_from_match(match)
-      base = if match[1] == 'n'
-        match[3] == 'w' ? 360 : 0
+      north_south, degrees, east_west = match[1], match[2].to_i, match[3]
+      
+      base = base_azimuth(north_south, east_west)
+      operation = azimuth_operation(north_south, east_west)
+      
+      base.send(operation, degrees)
+    end
+
+    def base_azimuth(north_south, east_west)
+      if north_south == 'n'
+        east_west == 'w' ? 360 : 0
       else
         180
       end
+    end
 
-      operation = if (match[1] == 'n' && match[3] == 'w') || (match[1] == 's' && match[3] == 'e')
+    def azimuth_operation(north_south, east_west)
+      if (north_south == 'n' && east_west == 'w') || (north_south == 's' && east_west == 'e')
         :-
       else
         :+
       end
-
-      base.send(operation, match[2].to_i)
     end
 
     def generate_compass_quadrant_bearing(b)
