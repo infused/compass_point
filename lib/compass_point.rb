@@ -1,7 +1,7 @@
 require_relative 'compass_point/version'
 
 class CompassPoint
-  COMPASS_BEARING_REGEX = /\A(n|s)\s(\d{1,3})°?\s(e|w)\z/i.freeze
+  COMPASS_BEARING_REGEX = /\A(n|s)\s(\d{1,3})°?\s(e|w)\z/i
 
   POINTS = {
     n: {min: 354.38, mid: 0.0, max: 5.62, name: 'North'},
@@ -36,13 +36,16 @@ class CompassPoint
     nwbn: {min: 320.63, mid: 326.25, max: 331.87, name: 'Northwest by north'},
     nnw: {min: 331.88, mid: 337.50, max: 343.12, name: 'North northwest'},
     nbw: {min: 343.13, mid: 348.75, max: 354.37, name: 'North by west'}
-  }.freeze
+  }.each_value(&:freeze).freeze
+
+  NAME_INDEX = POINTS.each_with_object({}) { |(key, value), idx| idx[value[:name].downcase] = key }.freeze
+  private_constant :NAME_INDEX
 
   class << self
     def azimuth(s)
-      return nil if s.nil? || s.to_s.strip.empty?
-      
-      input = normalize_input(s)
+      input = normalized_or_nil(s)
+      return nil unless input
+
       if (point = find_point(input))
         point[:mid]
       elsif (match = input.match(COMPASS_BEARING_REGEX))
@@ -58,38 +61,31 @@ class CompassPoint
     end
 
     def min(s)
-      return nil if s.nil? || s.to_s.strip.empty?
-      
-      point = find_point(normalize_input(s))
+      point = find_point_for(s)
       point && point[:min]
     end
 
     def max(s)
-      return nil if s.nil? || s.to_s.strip.empty?
-      
-      point = find_point(normalize_input(s))
+      point = find_point_for(s)
       point && point[:max]
     end
 
     def min_max(s)
-      return nil if s.nil? || s.to_s.strip.empty?
-      
-      point = find_point(normalize_input(s))
+      point = find_point_for(s)
       point && [point[:min], point[:max]]
     end
 
     def name(s)
-      return nil if s.nil? || s.to_s.strip.empty?
-      
-      point = find_point(normalize_input(s))
+      point = find_point_for(s)
       point && point[:name]
     end
 
     def compass_quadrant_bearing(bearing)
       return nil unless bearing.is_a?(Numeric)
-      return nil if bearing < 0 || bearing > 360
+      return nil if bearing.negative? || bearing > 360
       return nil if bearing.respond_to?(:nan?) && bearing.nan?
       return nil if bearing.respond_to?(:infinite?) && bearing.infinite?
+
       b = bearing.round
       case b
       when 0, 360 then 'N'
@@ -103,6 +99,19 @@ class CompassPoint
 
     private
 
+    def normalized_or_nil(s)
+      return nil if s.nil? || s.to_s.strip.empty?
+
+      normalize_input(s)
+    end
+
+    def find_point_for(s)
+      input = normalized_or_nil(s)
+      return nil unless input
+
+      find_point(input)
+    end
+
     def azimuth_from_match(match)
       north_south = match[1]
       degrees = match[2].to_i
@@ -110,49 +119,35 @@ class CompassPoint
 
       return nil if degrees.negative? || degrees > 90
 
-      base = base_azimuth(north_south, east_west)
-      operation = azimuth_operation(north_south, east_west)
-
-      base.send(operation, degrees)
-    end
-
-    def base_azimuth(north_south, east_west)
-      if north_south == 'n'
-        east_west == 'w' ? 360 : 0
-      else
-        180
-      end
-    end
-
-    def azimuth_operation(north_south, east_west)
-      if (north_south == 'n' && east_west == 'w') || (north_south == 's' && east_west == 'e')
-        :-
-      else
-        :+
+      case [north_south, east_west]
+      when %w[n e] then degrees
+      when %w[s e] then 180 - degrees
+      when %w[s w] then 180 + degrees
+      when %w[n w] then 360 - degrees
       end
     end
 
     def generate_compass_quadrant_bearing(b)
-      s = []
-      s << north_or_south(b)
-      s << if north_or_south(b) == 'N'
-        east_or_west(b) == 'W' ? (360 - b).abs : b
-      else
-        (180 - b).abs
-      end.to_s
-      s.last << '°'
-      s << east_or_west(b)
-      s.join(' ')
+      ns = north_or_south(b)
+      ew = east_or_west(b)
+      "#{ns} #{quadrant_offset(b, ns, ew)}° #{ew}"
+    end
+
+    def quadrant_offset(b, ns, ew)
+      return 360 - b if ns == 'N' && ew == 'W'
+      return b if ns == 'N'
+
+      (180 - b).abs
     end
 
     def north_or_south(bearing)
       b = bearing.round
-      (0..90).cover?(b.to_i) || (270..360).cover?(b.to_i) ? 'N' : 'S'
+      (0..90).cover?(b) || (270..360).cover?(b) ? 'N' : 'S'
     end
 
     def east_or_west(bearing)
       b = bearing.round
-      (180..360).cover?(b.to_i) ? 'W' : 'E'
+      (180..360).cover?(b) ? 'W' : 'E'
     end
 
     def find_point(s)
@@ -164,7 +159,7 @@ class CompassPoint
     end
 
     def find_point_by_name(s)
-      POINTS.values.find { |v| v[:name].downcase == s }
+      POINTS[NAME_INDEX[s]]
     end
 
     def normalize_input(name)
