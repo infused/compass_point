@@ -310,4 +310,38 @@ describe CompassPoint do
       expect(described_class.compass_quadrant_bearing(Float::NAN)).to be_nil
     end
   end
+
+  describe '.quadrant' do
+    it 'returns the quadrant symbol for valid bearings' do
+      expect(described_class.quadrant(0)).to eq :ne
+      expect(described_class.quadrant(45)).to eq :ne
+      expect(described_class.quadrant(89.99)).to eq :ne
+      expect(described_class.quadrant(90)).to eq :se
+      expect(described_class.quadrant(135)).to eq :se
+      expect(described_class.quadrant(180)).to eq :sw
+      expect(described_class.quadrant(225)).to eq :sw
+      expect(described_class.quadrant(270)).to eq :nw
+      expect(described_class.quadrant(315)).to eq :nw
+      expect(described_class.quadrant(359.99)).to eq :nw
+      expect(described_class.quadrant(360)).to eq :ne
+    end
+
+    it 'returns nil for invalid input' do
+      expect(described_class.quadrant(nil)).to be_nil
+      expect(described_class.quadrant('N')).to be_nil
+      expect(described_class.quadrant(-1)).to be_nil
+      expect(described_class.quadrant(361)).to be_nil
+      expect(described_class.quadrant(Float::NAN)).to be_nil
+      expect(described_class.quadrant(Float::INFINITY)).to be_nil
+    end
+  end
+
+  describe '.points' do
+    it 'returns all 32 compass point abbreviations as Symbols' do
+      expect(described_class.points).to be_an(Array)
+      expect(described_class.points.length).to eq 32
+      expect(described_class.points).to include(:n, :s, :e, :w, :ne, :se, :sw, :nw)
+      expect(described_class.points).to all(be_a(Symbol))
+    end
+  end
 end

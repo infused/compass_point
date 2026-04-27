@@ -81,10 +81,7 @@ class CompassPoint
     end
 
     def compass_quadrant_bearing(bearing)
-      return nil unless bearing.is_a?(Numeric)
-      return nil if bearing.negative? || bearing > 360
-      return nil if bearing.respond_to?(:nan?) && bearing.nan?
-      return nil if bearing.respond_to?(:infinite?) && bearing.infinite?
+      return nil unless valid_bearing?(bearing)
 
       b = bearing.round
       case b
@@ -97,7 +94,31 @@ class CompassPoint
       end
     end
 
+    def quadrant(bearing)
+      return nil unless valid_bearing?(bearing)
+
+      case bearing % 360
+      when 0...90    then :ne
+      when 90...180  then :se
+      when 180...270 then :sw
+      else                :nw
+      end
+    end
+
+    def points
+      POINTS.keys
+    end
+
     private
+
+    def valid_bearing?(bearing)
+      return false unless bearing.is_a?(Numeric)
+      return false if bearing.negative? || bearing > 360
+      return false if bearing.respond_to?(:nan?) && bearing.nan?
+      return false if bearing.respond_to?(:infinite?) && bearing.infinite?
+
+      true
+    end
 
     def normalized_or_nil(s)
       return nil if s.nil? || s.to_s.strip.empty?

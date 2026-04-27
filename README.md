@@ -26,8 +26,8 @@ Compass Point is compatible with the following versions of Ruby:
 
 ### Azimuth
 
-Given an string such as "NW", "SE", "Northeast by east", or "N 20° W", `azimuth` will
-return the corresponding azimuth in degrees from 0 to 360:
+Given a string such as "NW", "SE", "Northeast by east", or "N 20° W" (a Symbol abbreviation
+also works, e.g. `:nw`), `azimuth` will return the corresponding azimuth in degrees from 0 to 360:
 
     CompassPoint.azimuth('N') #=> 0.0
     CompassPoint.azimuth('S') #=> 180.0
@@ -65,6 +65,22 @@ example:
     CompassPoint.compass_quadrant_bearing(103) #=> "S 77° E"
     CompassPoint.compass_quadrant_bearing(340) #=> "N 20° W"
     CompassPoint.compass_quadrant_bearing(0) #=> "N"
+
+### Quadrant
+
+Given an azimuth, return its quadrant as a Symbol (`:ne`, `:se`, `:sw`, or `:nw`).
+Boundaries are half-open: `0` is `:ne`, `90` is `:se`, `180` is `:sw`, `270` is `:nw`,
+and `360` wraps back to `:ne`.
+
+    CompassPoint.quadrant(45)  #=> :ne
+    CompassPoint.quadrant(180) #=> :sw
+    CompassPoint.quadrant(315) #=> :nw
+
+### Points
+
+Enumerate all 32 compass point abbreviations:
+
+    CompassPoint.points #=> [:n, :nbe, :nne, ..., :nbw]
 
 ## License
 
