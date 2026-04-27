@@ -1,6 +1,6 @@
-class CompassPoint
-  VERSION = '3.0.0'.freeze
+require_relative 'compass_point/version'
 
+class CompassPoint
   COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/i.freeze
 
   POINTS = {
