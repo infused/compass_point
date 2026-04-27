@@ -1,7 +1,7 @@
 require_relative 'compass_point/version'
 
 class CompassPoint
-  COMPASS_BEARING_REGEX = /(n|s)\s(\d{1,3}).?\s(e|w)/i.freeze
+  COMPASS_BEARING_REGEX = /\A(n|s)\s(\d{1,3})°?\s(e|w)\z/i.freeze
 
   POINTS = {
     n: {min: 354.38, mid: 0.0, max: 5.62, name: 'North'},
@@ -54,7 +54,7 @@ class CompassPoint
       azm = azimuth(s)
       return if azm.nil?
 
-      azm > 180 ? azm - 180 : azm + 180
+      azm >= 180 ? azm - 180 : azm + 180
     end
 
     def min(s)

@@ -78,6 +78,16 @@ describe CompassPoint do
       expect(described_class.azimuth('45 N E')).to be_nil
     end
 
+    it 'rejects malformed bearings with junk between digits and direction' do
+      expect(described_class.azimuth('N 20X W')).to be_nil
+      expect(described_class.azimuth('S 45! E')).to be_nil
+    end
+
+    it 'rejects bearings with surrounding text' do
+      expect(described_class.azimuth('prefix N 20 E')).to be_nil
+      expect(described_class.azimuth('N 20 E suffix')).to be_nil
+    end
+
     it 'handles boundary degree values' do
       expect(described_class.azimuth('N 0 E')).to eq 0
       expect(described_class.azimuth('N 90 E')).to eq 90
@@ -89,6 +99,8 @@ describe CompassPoint do
   describe '.back_azimuth' do
     it 'returns opposite of azimuth' do
       expect(described_class.back_azimuth('N')).to eq 180.0
+      expect(described_class.back_azimuth('S')).to eq 0.0
+      expect(described_class.back_azimuth(:s)).to eq 0.0
       expect(described_class.back_azimuth(:nw)).to eq 135.0
       expect(described_class.back_azimuth('sbw')).to eq 11.25
       expect(described_class.back_azimuth('X')).to be_nil

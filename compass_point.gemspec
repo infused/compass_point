@@ -7,11 +7,18 @@ Gem::Specification.new do |s|
   s.email = 'keithm@infused.org'
   s.homepage = 'https://github.com/infused/compass_point'
   s.summary = 'A Ruby library for working with compass points'
-  s.description = 'Convert between compass point names, abbreviations, bearings, and azimuths (degrees and radians).'
+  s.description = 'Convert between compass point names, abbreviations, bearings, and azimuths (degrees).'
   s.license = 'MIT'
 
   s.files = Dir['CHANGELOG.md', 'LICENSE', 'README.md', '{lib,spec}/**/*.rb', 'compass_point.gemspec']
   s.require_paths = ['lib']
+
+  s.metadata = {
+    'source_code_uri' => 'https://github.com/infused/compass_point',
+    'bug_tracker_uri' => 'https://github.com/infused/compass_point/issues',
+    'documentation_uri' => 'https://rubydoc.info/gems/compass_point',
+    'rubygems_mfa_required' => 'true'
+  }
 
   s.required_ruby_version = '>= 3.2.0'
 end

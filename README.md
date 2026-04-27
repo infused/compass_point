@@ -16,7 +16,7 @@ A Ruby library for working with compass points.
 
 Compass Point is compatible with the following versions of Ruby:
 
-* MRI Ruby > 3.2.x
+* MRI Ruby >= 3.2 (tested against 3.2, 3.3, 3.4, and 4.0)
 
 ## Installation
 
@@ -37,9 +37,9 @@ return the corresponding azimuth in degrees from 0 to 360:
 
 Use `back_azimuth` to find the opposite azimuth:
 
-    CompassPoint.azimuth('N') #=> 180.0
-    CompassPoint.azimuth('S') #=> 0.0
-    CompassPoint.azimuth('swbs') #=> 33.75
+    CompassPoint.back_azimuth('N') #=> 180.0
+    CompassPoint.back_azimuth('S') #=> 0.0
+    CompassPoint.back_azimuth('swbs') #=> 33.75
 
 You can also get the minimum and maximum azimuths for any
 abbreviation with `min`, `max` and `min_max`:
